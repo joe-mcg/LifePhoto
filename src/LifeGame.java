@@ -24,7 +24,9 @@ public class LifeGame {
 	}
 
 	public void start() {
-		// TODO Auto-generated method stub
+		//loop through to find specific element
+		//element.calcuateNextMove returns what it should be
+		//in the same place of new array, add the output of calcNextMove
 		
 	}
 
