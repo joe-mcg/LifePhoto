@@ -82,9 +82,9 @@ public class LifeGame {
 		if (grid[i][j-1] == 1) {
 			neighbors +=1;
 		}
-		if (grid[i][j] == 1) {
-			neighbors +=1;
-		}
+//		if (grid[i][j] == 1) {
+//			neighbors +=1;
+//		}
 		if (grid[i][j+1] == 1) {
 			neighbors +=1;
 		}
