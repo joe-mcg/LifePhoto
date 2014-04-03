@@ -23,13 +23,15 @@ public class LifeGame {
 		//loop through each elemtn
 		//element.calcuateNextMove returns what it should be
 		//in the same place of new array, add the output of calcNextMove
-		for (int i = 0; i<grid.length;i++) {
+		for (int k =0; k<20; k++){
+		 
+		 for (int i = 0; i<grid.length;i++) {
 			for (int j=0; j<grid.length;j++) {
 				grid[i][j] = calculateNextMove(i,j);
 			}
 		}
 		drawGrid();
-		
+		}
 	}
 	 
 	private void drawGrid() {
