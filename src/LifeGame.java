@@ -24,12 +24,14 @@ public class LifeGame {
 		//element.calcuateNextMove returns what it should be
 		//in the same place of new array, add the output of calcNextMove
 		for (int k =0; k<20; k++){
-		 
+			
 		 for (int i = 0; i<grid.length;i++) {
 			for (int j=0; j<grid.length;j++) {
-				grid[i][j] = calculateNextMove(i,j);
+				//This is so it's not a sliding scale of when to move.
+				tempGrid[i][j] = calculateNextMove(i,j);
 			}
 		}
+		grid = tempGrid;
 		drawGrid();
 		}
 	}

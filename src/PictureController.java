@@ -1,3 +1,4 @@
+import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -35,15 +36,15 @@ public class PictureController {
                 g.drawImage(img1, 0, 0, null);
             }
         };
-
-
         frame.add(pane);
+       // frame.repaint();
         
 	}
 	
 	private static JFrame buildFrame() {
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.pack();
         frame.setSize(w, h+30);
         frame.setVisible(true);
         return frame;

@@ -5,7 +5,7 @@ public class LifeController {
 		PictureController picControl = new PictureController();
 		picControl.loadImages();
 		LifeGame game = new LifeGame();
-		//game.createNewGrid(50);
-		//game.start();
+		game.createNewGrid(10);
+		game.start();
 	}
 }
