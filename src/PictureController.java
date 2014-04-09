@@ -1,4 +1,3 @@
-import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -13,10 +12,9 @@ public class PictureController {
 
 	BufferedImage img1, img2 = null;
 	static int h, w;
+	JPanel picture;
 	
-	public void loadImages() {
-		
-		
+	public void loadImagesFirstTime() {		
 		try {
 		    img2 = ImageIO.read(this.getClass().getResource("/images/testImage1.png"));
 		    img1 = ImageIO.read(this.getClass().getResource("/images/testImage2.png"));
@@ -28,16 +26,48 @@ public class PictureController {
 		w = img1.getWidth();
 		
 		JFrame frame = buildFrame();
+		drawImage(img1);
 		
-		JPanel pane = new JPanel() {
+        frame.add(picture);
+        
+        
+        redrawImage(img2);
+        frame.repaint();
+        redrawImage(img1);
+        frame.repaint();
+        redrawImage(img2);
+        frame.repaint();
+        redrawImage(img1);
+        frame.repaint();
+        redrawImage(img2);
+        frame.repaint();
+        redrawImage(img1);
+	}
+	
+	public void redrawImage(BufferedImage newImage){
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		drawImage(newImage);
+		
+		//TODO:
+		// draws the image chunk  
+//        Graphics2D gr = imgs[count++].createGraphics();  
+//        gr.drawImage(image, 0, 0, chunkWidth, chunkHeight, chunkWidth * y, chunkHeight * x, chunkWidth * y + chunkWidth, chunkHeight * x + chunkHeight, null);  
+//        gr.dispose();  
+	}
+	
+	public void drawImage(final BufferedImage newImage) {
+		picture = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                g.drawImage(img1, 0, 0, null);
+                g.drawImage(newImage, 0, 0, null);
             }
         };
-        frame.add(pane);
-       // frame.repaint();
         
 	}
 	
