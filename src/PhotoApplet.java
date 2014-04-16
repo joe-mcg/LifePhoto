@@ -21,10 +21,12 @@ class Photo extends Component {
     private int[] cells;
     private BufferedImage mainImage, img2;
     int w, h, cw, ch;
+    int gameOfLife;
     
     public Photo(String imageSrc) {
         try {
             mainImage = ImageIO.read(this.getClass().getResource(imageSrc));
+            im2 = ImageIO.read(this.getClass().getResource("/images/testImage.png"));
             w = mainImage.getWidth(null);
             h = mainImage.getHeight(null);
         } catch (IOException e) {
@@ -39,7 +41,7 @@ class Photo extends Component {
         }
     }
 
-    void jumble() {
+/*    void jumble() {
         Random rand = new Random();
         int ri;
         for (int i=0; i<numcells; i++) {
@@ -50,7 +52,7 @@ class Photo extends Component {
             cells[ri] = tmp;
         }
     }
-
+*/
     public Dimension getPreferredSize() {
         return new Dimension(w, h);
     }
@@ -65,10 +67,17 @@ class Photo extends Component {
                 int cell = cells[x*numlocs+y];
                 dx = (cell / numlocs) * cw;
                 dy = (cell % numlocs) * ch;
+                if (gameOfLife==1) {
                 g.drawImage(mainImage,
                             dx, dy, dx+cw, dy+ch,
                             sx, sy, sx+cw, sy+ch,
                             null);
+                } else {
+                	g.drawImage(img2,
+                            dx, dy, dx+cw, dy+ch,
+                            sx, sy, sx+cw, sy+ch,
+                            null);
+                }
             }
         }
     }
@@ -81,6 +90,7 @@ public class PhotoApplet extends JApplet {
 	 */
 	private static final long serialVersionUID = 1L;
 	static String imageFileName = "/images/testImage2.png";
+	static String image2FileName = "/images/testImage.png";
 
     public void init() {
         buildUI();
@@ -94,7 +104,8 @@ public class PhotoApplet extends JApplet {
         jumbleButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     JButton b = (JButton)e.getSource();
-                    ji.jumble();
+//                    ji.jumble();
+                    //TODO game of life move here.
                     ji.repaint();
                 };
             });
