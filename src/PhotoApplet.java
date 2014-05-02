@@ -8,6 +8,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.JApplet;
@@ -20,7 +21,7 @@ class Photo extends Component {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int numlocs = 2;
+	private int numlocs = 50;
     private int numcells = numlocs*numlocs;
     private int[] cells;
     private BufferedImage mainImage, img2;
@@ -45,7 +46,7 @@ class Photo extends Component {
         }
     }
 
-/*    void jumble() {
+    void jumble() {
         Random rand = new Random();
         int ri;
         for (int i=0; i<numcells; i++) {
@@ -56,7 +57,12 @@ class Photo extends Component {
             cells[ri] = tmp;
         }
     }
-*/
+    
+    boolean getTrue() {
+    	 Random rand = new Random();
+    	 return rand.nextBoolean();
+    }
+
     public Dimension getPreferredSize() {
         return new Dimension(w, h);
     }
@@ -71,7 +77,8 @@ class Photo extends Component {
                 int cell = cells[x*numlocs+y];
                 dx = (cell / numlocs) * cw;
                 dy = (cell % numlocs) * ch;
-                if (PhotoApplet.isAlive()) {
+               // if (PhotoApplet.isAlive()) {
+                if (getTrue()) {
                 g.drawImage(mainImage,
                             dx, dy, dx+cw, dy+ch,
                             sx, sy, sx+cw, sy+ch,

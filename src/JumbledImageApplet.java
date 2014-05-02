@@ -41,7 +41,7 @@ import java.util.Random;
 
 class JumbledImage extends Component {
 
-    private int numlocs = 2;
+    private int numlocs = 100;
     private int numcells = numlocs*numlocs;
     private int[] cells;
     private BufferedImage bi;
