@@ -26,6 +26,7 @@ class Photo extends Component {
     private int[] cells;
     private BufferedImage mainImage, img2;
     int w, h, cw, ch;
+	public int[][] grid;
 
     
     public Photo(String imageSrc) {
@@ -78,7 +79,7 @@ class Photo extends Component {
                 dx = (cell / numlocs) * cw;
                 dy = (cell % numlocs) * ch;
                // if (PhotoApplet.isAlive()) {
-                if (getTrue()) {
+                if (grid[x][y]==0) {
                 g.drawImage(mainImage,
                             dx, dy, dx+cw, dy+ch,
                             sx, sy, sx+cw, sy+ch,
@@ -103,7 +104,7 @@ public class PhotoApplet extends JApplet {
 	static String imageFileName = "/images/testImage2.png";
 	static String image2FileName= "/images/testImage.png";
 	static boolean gameOfLife;
-	
+
     public void init() {
         buildUI();
     }
@@ -142,15 +143,19 @@ public class PhotoApplet extends JApplet {
     }
 
     public static void main(String s[]) {
-        JFrame f = new JFrame("PhotoLife");
-        f.addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {System.exit(0);}
-        });
-        
-        PhotoApplet jumbler = new PhotoApplet();
-        jumbler.buildUI();
-        f.add("Center", jumbler);
-        f.pack();
-        f.setVisible(true);
+//        JFrame f = new JFrame("PhotoLife");
+//        f.addWindowListener(new WindowAdapter() {
+//            public void windowClosing(WindowEvent e) {System.exit(0);}
+//        });
+//        
+//        PhotoApplet jumbler = new PhotoApplet();
+//        jumbler.buildUI();
+//        f.add("Center", jumbler);
+//        f.pack();
+//        f.setVisible(true);
     }
+
+	public void setGrid(int[][] gameGrid) {
+		grid = gameGrid;		
+	}
 }
