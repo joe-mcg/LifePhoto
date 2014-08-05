@@ -21,12 +21,12 @@ class Photo extends Component {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int numlocs = 50;
-    private int numcells = numlocs*numlocs;
+	private int lengthOfGame = 100;
+    private int numcells = lengthOfGame*lengthOfGame;
     private int[] cells;
     private BufferedImage mainImage, img2;
     int w, h, cw, ch;
-	public int[][] grid;
+    static LifeGame game;
 
     
     public Photo(String imageSrc) {
@@ -39,23 +39,13 @@ class Photo extends Component {
             System.out.println("Image could not be read");
 //            System.exit(1);
         }
-        cw = w/numlocs;
-        ch = h/numlocs;
+        game = new LifeGame();
+		game.createNewGrid(lengthOfGame);
+        cw = w/lengthOfGame;
+        ch = h/lengthOfGame;
         cells = new int[numcells];
         for (int i=0;i<numcells;i++) {
             cells[i] = i;
-        }
-    }
-
-    void jumble() {
-        Random rand = new Random();
-        int ri;
-        for (int i=0; i<numcells; i++) {
-            while ((ri = rand.nextInt(numlocs)) == i);
-
-            int tmp = cells[i];
-            cells[i] = cells[ri];
-            cells[ri] = tmp;
         }
     }
     
@@ -71,15 +61,15 @@ class Photo extends Component {
     public void paint(Graphics g) {
 
         int dx, dy;
-        for (int x=0; x<numlocs; x++) {
+        for (int x=0; x<lengthOfGame; x++) {
             int sx = x*cw;
-            for (int y=0; y<numlocs; y++) {
+            for (int y=0; y<lengthOfGame; y++) {
                 int sy = y*ch;
-                int cell = cells[x*numlocs+y];
-                dx = (cell / numlocs) * cw;
-                dy = (cell % numlocs) * ch;
+                int cell = cells[x*lengthOfGame+y];
+                dx = (cell / lengthOfGame) * cw;
+                dy = (cell % lengthOfGame) * ch;
                // if (PhotoApplet.isAlive()) {
-                if (grid[x][y]==0) {
+                if (game.grid[x][y]==1) {
                 g.drawImage(mainImage,
                             dx, dy, dx+cw, dy+ch,
                             sx, sy, sx+cw, sy+ch,
@@ -92,6 +82,7 @@ class Photo extends Component {
                 }
             }
         }
+		game.move();
     }
 }
 
@@ -119,7 +110,6 @@ public class PhotoApplet extends JApplet {
     }
      
     public void buildUI() {
-    	setAlive(true);
         final Photo ji = new Photo(imageFileName);
         add("Center", ji);
         JButton jumbleButton = new JButton("Jumble");
@@ -127,12 +117,7 @@ public class PhotoApplet extends JApplet {
         jumbleButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     JButton b = (JButton)e.getSource();
-                    if(isAlive()) {
-                    	setAlive(false);
-                    } else {
-                    	setAlive(true);
-                    }
-//                    ji.jumble();
+                    
                     //TODO game of life move here.
                     ji.repaint();
                 };
@@ -143,19 +128,19 @@ public class PhotoApplet extends JApplet {
     }
 
     public static void main(String s[]) {
-//        JFrame f = new JFrame("PhotoLife");
-//        f.addWindowListener(new WindowAdapter() {
-//            public void windowClosing(WindowEvent e) {System.exit(0);}
-//        });
-//        
-//        PhotoApplet jumbler = new PhotoApplet();
-//        jumbler.buildUI();
-//        f.add("Center", jumbler);
-//        f.pack();
-//        f.setVisible(true);
+
+        JFrame f = new JFrame("PhotoLife");
+        f.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {System.exit(0);}
+        });
+        
+        PhotoApplet jumbler = new PhotoApplet();
+        jumbler.buildUI();
+        f.add("Center", jumbler);
+        f.pack();
+        f.setVisible(true);
+        PictureController picControl = new PictureController();
+		picControl.loadImagesFirstTime();		
     }
 
-	public void setGrid(int[][] gameGrid) {
-		grid = gameGrid;		
-	}
 }

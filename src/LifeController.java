@@ -16,7 +16,6 @@ public class LifeController {
         
         PhotoApplet photo = new PhotoApplet();
         photo.buildUI();
-        photo.setGrid(game.getGameGrid());
         f.add("Center", photo);
         f.pack();
         f.setVisible(true);
@@ -24,7 +23,6 @@ public class LifeController {
 		
 		//GAME LOOP
 		for (int l =0;l<20;l++) {
-			photo.setGrid(game.getGameGrid());
 			game.move();
 		}
 	}
