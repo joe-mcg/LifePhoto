@@ -8,7 +8,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.JApplet;
@@ -17,9 +16,6 @@ import javax.swing.JFrame;
 
 class Photo extends Component {
 
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private int lengthOfGame = 100;
     private int numcells = lengthOfGame*lengthOfGame;
@@ -47,11 +43,6 @@ class Photo extends Component {
         for (int i=0;i<numcells;i++) {
             cells[i] = i;
         }
-    }
-    
-    boolean getTrue() {
-    	 Random rand = new Random();
-    	 return rand.nextBoolean();
     }
 
     public Dimension getPreferredSize() {
@@ -99,26 +90,15 @@ public class PhotoApplet extends JApplet {
     public void init() {
         buildUI();
     }
-    
-    //TODO move these functions somewhere sensible
-    public static boolean isAlive() {
-    	return gameOfLife;
-    }
-    
-    public void setAlive(boolean alive) {
-    	gameOfLife = alive;
-    }
      
     public void buildUI() {
         final Photo ji = new Photo(imageFileName);
         add("Center", ji);
-        JButton jumbleButton = new JButton("Jumble");
+        JButton jumbleButton = new JButton("Move");
         
         jumbleButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     JButton b = (JButton)e.getSource();
-                    
-                    //TODO game of life move here.
                     ji.repaint();
                 };
             });
